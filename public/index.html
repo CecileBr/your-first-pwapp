@@ -18,6 +18,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,12 +28,16 @@
   <link rel="stylesheet" type="text/css" href="/styles/inline.css">
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
 
-  <!-- CODELAB: Add link rel manifest -->
-  <!-- CODELAB: Add iOS meta tags and icons -->
-  <!-- CODELAB: Add description here -->
-  <!-- CODELAB: Add meta theme-color -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Weather PWA">
+  <link rel="apple-touch-icon" href="/images/icons/icon-152x152.png">
+  <meta name="description" content="A sample weather app">
+  <meta name="theme-color" content="#2F3BA2" />
 
 </head>
+
 <body>
 
   <header class="header">
@@ -53,8 +58,9 @@
     </button>
 
     <div id="about" class="weather-card">
-      <b>Your First Progressive Web App Codelab</b><br>
-      Get started at <a href="https://g.co/codelabs/pwa">https://g.co/codelabs/pwa</a>.
+      <b>Your First Progressive Web App Codelab</b>
+      <br> Get started at
+      <a href="https://g.co/codelabs/pwa">https://g.co/codelabs/pwa</a>.
     </div>
 
     <div id="weather-template" class="weather-card" hidden>
@@ -73,13 +79,15 @@
         <div class="visual">
           <div class="icon"></div>
           <div class="temperature">
-            <span class="value"></span><span class="scale">°F</span>
+            <span class="value"></span>
+            <span class="scale">°F</span>
           </div>
         </div>
         <div class="description">
           <div class="humidity">
             <span class="label">Humidity:</span>
-            <span class="value"></span><span class="scale">%</span>
+            <span class="value"></span>
+            <span class="scale">%</span>
           </div>
           <div class="wind">
             <span class="label">Wind:</span>
@@ -92,9 +100,9 @@
             <span class="value"></span>
           </div>
           <div class="sunset">
-              <span class="label">Sunset:</span>
-              <span class="value"></span>
-            </div>
+            <span class="label">Sunset:</span>
+            <span class="value"></span>
+          </div>
         </div>
       </div>
       <div class="future">
@@ -203,8 +211,16 @@
   <script src="/scripts/app.js"></script>
   <!-- CODELAB: Add the install script here -->
   <script>
-    // CODELAB: Register service worker.
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then((reg) => {
+            console.log('Service worker registered.', reg);
+          });
+      });
+    }
   </script>
 
 </body>
+
 </html>

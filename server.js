@@ -23,26 +23,26 @@ const fetch = require('node-fetch');
 const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
 
 // CODELAB: Change this to add a delay (ms) before the server responds.
-const FORECAST_DELAY = 0;
+const FORECAST_DELAY = 10;
 
 // CODELAB: If running locally, set your Dark Sky API key here
-const API_KEY = process.env.DARKSKY_API_KEY;
+const API_KEY = '782282a196a12a152231d40cce75cc86';
 const BASE_URL = `https://api.darksky.net/forecast`;
 
 // Fake forecast data used if we can't reach the Dark Sky API
 const fakeForecast = {
   fakeData: true,
-  latitude: 0,
-  longitude: 0,
-  timezone: 'America/New_York',
+  latitude: 48.8534,
+  longitude: 2.3488,
+  timezone: "Europe/Paris",
   currently: {
     time: 0,
-    summary: 'Clear',
-    icon: 'clear-day',
-    temperature: 43.4,
-    humidity: 0.62,
-    windSpeed: 3.74,
-    windBearing: 208,
+    summary: "Drizzle",
+    icon: "rain",
+    temperature: 59.75,
+    humidity: 0.77,
+    windSpeed: 3.59,
+    windBearing: 255,
   },
   daily: {
     data: [
@@ -121,7 +121,7 @@ const fakeForecast = {
  * @return {Object} forecast object.
  */
 function generateFakeForecast(location) {
-  location = location || '40.7720232,-73.9732319';
+  location = location || '48.8534, 2.3488';
   const commaAt = location.indexOf(',');
 
   // Create a new copy of the forecast
@@ -139,7 +139,7 @@ function generateFakeForecast(location) {
  * @param {Response} resp response object from Express.
  */
 function getForecast(req, resp) {
-  const location = req.params.location || '40.7720232,-73.9732319';
+  const location = req.params.location || '48.8534,2.3488';
   const url = `${BASE_URL}/${API_KEY}/${location}`;
   fetch(url).then((resp) => {
     return resp.json();
@@ -171,7 +171,6 @@ function startServer() {
     const path = `"${req.method} ${req.path}"`;
     const m = `${req.ip} - ${time} - ${path}`;
     // eslint-disable-next-line no-console
-    console.log(m);
     next();
   });
 
